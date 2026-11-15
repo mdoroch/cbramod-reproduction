@@ -7,7 +7,7 @@ Reproduction of [CBraMod](https://arxiv.org/abs/2412.07236) (ICLR 2025) on SHU-M
 ```bash
 pip install -r requirements.txt
 # SHU-MI from figshare 19228725 (1.4 GB). Entries are AES-encrypted: unzip fails, use bsdtar (libarchive-tools)
-cd data && wget -O mat_files.zip https://ndownloader.figshare.com/files/36728994 \
+mkdir -p data && cd data && wget -O mat_files.zip https://ndownloader.figshare.com/files/36728994 \
   && bsdtar --passphrase shu-bci2022 -xf mat_files.zip && rm mat_files.zip && cd ..   # -> data/mat/ (125 files)
 python prepare_data.py                    # data/mat/*.mat -> data/processed/*.npy (200 Hz)
 bash scripts/download_weights.sh          # pretrained CBraMod weights from HuggingFace -> weights/
