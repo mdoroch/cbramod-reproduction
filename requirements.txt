@@ -1,0 +1,9 @@
+torch==2.7.1
+torchaudio==2.7.1  # EEGSimpleConv resamples inside the model
+numpy
+scipy
+scikit-learn
+pyyaml
+tensorboard
+matplotlib  # eda only
+einops  # scripts/check_parity.py only (imported by the official CBraMod code)

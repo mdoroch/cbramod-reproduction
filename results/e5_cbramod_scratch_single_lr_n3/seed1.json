@@ -1,0 +1,67 @@
+{
+  "name": "e5_cbramod_scratch_single_lr_n3",
+  "seed": 1,
+  "config": {
+    "model": "cbramod",
+    "pretrained": false,
+    "frozen": false,
+    "weights": "weights/pretrained_weights.pth",
+    "head": "large",
+    "dropout": 0.1,
+    "n_train_subjects": 3,
+    "ea": false,
+    "epochs": 50,
+    "batch_size": 64,
+    "lr": 0.0001,
+    "head_lr": null,
+    "weight_decay": 0.05,
+    "min_lr": 1e-06,
+    "clip_grad": 1.0
+  },
+  "train_subjects": [
+    7,
+    8,
+    12
+  ],
+  "n_params": 25525001,
+  "best_epoch": 7,
+  "val": {
+    "bacc": 0.6515535782454374,
+    "aucpr": 0.7100994948989751,
+    "auroc": 0.7165723135069865,
+    "loss": 0.7289352416992188
+  },
+  "test": {
+    "bacc": 0.5767354449480859,
+    "aucpr": 0.6137223497628279,
+    "auroc": 0.6255183060994189,
+    "loss": 0.7792788743972778
+  },
+  "test_by_subject": {
+    "21": {
+      "bacc": 0.6992424242424242,
+      "aucpr": 0.7271443520885932,
+      "auroc": 0.7684573002754822
+    },
+    "22": {
+      "bacc": 0.6361726508785333,
+      "aucpr": 0.7002159900591564,
+      "auroc": 0.7205187860268074
+    },
+    "23": {
+      "bacc": 0.6008230452674896,
+      "aucpr": 0.6984382055081967,
+      "auroc": 0.683804975528798
+    },
+    "24": {
+      "bacc": 0.46682166645720746,
+      "aucpr": 0.5013762457521405,
+      "auroc": 0.5008168907879854
+    },
+    "25": {
+      "bacc": 0.4665554660119572,
+      "aucpr": 0.4601584140004811,
+      "auroc": 0.44262233633824993
+    }
+  }
+}

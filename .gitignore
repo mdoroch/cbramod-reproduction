@@ -1,0 +1,7 @@
+data/
+weights/
+third_party/
+runs/
+__pycache__/
+.DS_Store
+*.zip

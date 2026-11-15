@@ -1,0 +1,17 @@
+# EEG-SimpleConv on SHU-MI. Architecture: official cross-subject BCIC-IV-2a config (run_results.ipynb).
+# Training loop is shared with CBraMod; only lr is tuned on val (scripts/reproduction/e2_simpleconv_lr.sh).
+model: simpleconv
+fm: 109
+n_convs: 4
+kernel_size: 8
+resampling: 70                          # Hz, done inside the model (input is 200 Hz)
+
+n_train_subjects: 15
+ea: false                               # true = Euclidean Alignment per subject (E8)
+epochs: 50
+batch_size: 64
+lr: 1.0e-3                              # placeholder until the lr search on val
+head_lr: null                           # single parameter group
+weight_decay: 0.05
+min_lr: 1.0e-6
+clip_grad: 1.0

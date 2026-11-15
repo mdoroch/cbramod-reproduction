@@ -1,0 +1,17 @@
+# CBraMod fine-tuning on SHU-MI: paper Table 6 + official repo defaults (finetune_main.py)
+model: cbramod
+pretrained: true                        # false = random init (E3)
+frozen: false                           # true = backbone not trained, head only (E6, paper Table 18)
+weights: weights/pretrained_weights.pth
+head: large                             # large = official `all_patch_reps`, small = mean-pool + linear (E4)
+dropout: 0.1                            # head dropout
+
+n_train_subjects: 15                    # < 15 = seeded random subset of subjects 1-15 (E5)
+ea: false                               # true = Euclidean Alignment per subject (E8)
+epochs: 50
+batch_size: 64
+lr: 1.0e-4                              # backbone
+head_lr: null                           # one lr for all, as in the paper (Table 6). Repo multi_lr: head 5e-4 (E1, E3-E6)
+weight_decay: 0.05
+min_lr: 1.0e-6                          # cosine annealing, stepped per batch as in the repo
+clip_grad: 1.0
