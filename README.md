@@ -84,7 +84,6 @@ Low data (E5), test AUROC by number of train subjects (3 seeds each; 15 = E7 / E
 | "±" in tables | Not stated what it is over | Seeds (5 for E1/E2, 3 otherwise) | Paper std may be over something else |
 | QK LayerNorm | Described in the paper, absent in the code | Follow the code (the weights were trained with it) | — |
 | Channels | 13 of 32 SHU channels are not among the 19 pretraining channels; ACPE depends on channel order | Use all 32 in file order | Unseen channels may hurt transfer |
-| EEG-SimpleConv recipe | Not defined for SHU-MI | Official cross-subject BCIC-IV-2a architecture, shared loop, no EA / Mixup, lr tuned on val | May underestimate SimpleConv: its "key ingredients" add ~16 pts in CBraMod Table 23 |
 | Seed values | "five random seeds", values not given; repo default 3407 | Seeds 0-4; 3407 run separately | Paper number may come from different seeds |
 | Overfitting | Not discussed | Official recipe kept: train loss -> ~0.01 by epoch 20, val loss rises from epoch 3, val AUROC flat | ~90% of the 50 epochs add nothing; best-val-AUROC epoch is partly noise (val AUROC moves ±0.015 between epochs) |
 | Checkpoint selection | "AUROC is the monitor score" | Best val AUROC epoch, test once | Val (16-20) and test (21-25) are different people: val AUROC ~0.73 vs test ~0.64 |
