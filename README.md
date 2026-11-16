@@ -24,16 +24,18 @@ Device is picked automatically (CUDA > MPS > CPU), fp32 everywhere.
 
 ## Experiments (`scripts/reproduction/`)
 
-| | Script | What | Seeds |
-|---|---|---|---|
-| E1 | `e1_cbramod.sh` | CBraMod, pretrained weights, full fine-tuning, **official repo lr** (head 5e-4) | 5 |
-| E2 | `e2_simpleconv_lr.sh`, `e2_simpleconv.sh` | EEG-SimpleConv from scratch, lr chosen on val | 5 |
-| E3 | `e3_cbramod_scratch.sh` | CBraMod from random init: does pretraining pay off? Repo lr, then one lr 1e-4 (as E7) | 3 + 3 |
-| E4 | `e4_cbramod_small_head.sh` | Small head (201 params) vs the official 20.6M MLP head (E1), repo lr | 3 |
-| E5 | `e5_low_data.sh` | 3 / 7 train subjects (seeded random subsets) for CBraMod (repo lr and one lr), CBraMod scratch (both), SimpleConv | 3 |
-| E6 | `e6_cbramod_frozen.sh` | Pretrained backbone frozen, only the head is trained (paper Table 18), repo lr | 3 |
-| **E7** | `e7_cbramod_single_lr.sh` | **CBraMod, paper recipe**: one lr 1e-4 for backbone and head (Table 6). Config default. Reproduces Table 3 | 5 |
-| E8 | `e8_ea.sh` | Euclidean Alignment per subject, both models (CBraMod as E7, SimpleConv as E2) | 3 + 3 |
+| | Script | What | Backbone lr | Head lr | Seeds |
+|---|---|---|---|---|---|
+| E1 | `e1_cbramod.sh` | CBraMod, pretrained weights, full fine-tuning, **official repo lr** (head 5e-4) | 1e-4 | 5e-4 | 5 |
+| E2 | `e2_simpleconv_lr.sh`, `e2_simpleconv.sh` | EEG-SimpleConv from scratch, lr chosen on val | 3e-4 (one lr) | – | 5 |
+| E3 | `e3_cbramod_scratch.sh` | CBraMod from random init: does pretraining pay off? Repo lr, then one lr 1e-4 (as E7) | 1e-4 | 5e-4, then 1e-4 | 3 + 3 |
+| E4 | `e4_cbramod_small_head.sh` | Small head (201 params) vs the official 20.6M MLP head (E1), repo lr | 1e-4 | 5e-4 | 3 |
+| E5 | `e5_low_data.sh` | 3 / 7 train subjects (seeded random subsets) for CBraMod (repo lr and one lr), CBraMod scratch (both), SimpleConv | CBraMod 1e-4, SimpleConv 3e-4 | CBraMod 5e-4, then 1e-4 | 3 |
+| E6 | `e6_cbramod_frozen.sh` | Pretrained backbone frozen, only the head is trained (paper Table 18), repo lr | frozen | 5e-4 | 3 |
+| **E7** | `e7_cbramod_single_lr.sh` | **CBraMod, paper recipe**: one lr 1e-4 for backbone and head (Table 6). Config default. Reproduces Table 3 | 1e-4 | 1e-4 | 5 |
+| E8 | `e8_ea.sh` | Euclidean Alignment per subject, both models (CBraMod as E7, SimpleConv as E2) | CBraMod 1e-4, SimpleConv 3e-4 | CBraMod 1e-4 | 3 + 3 |
+
+EEG-SimpleConv has one parameter group: its lr (3e-4) was picked on val among 1e-4 / 3e-4 / 1e-3 (`e2_simpleconv_lr.sh`) and reused in E5 and E8. All runs: AdamW, wd 0.05, cosine to 1e-6 per step, 50 epochs, batch 64.
 
 Every run selects the epoch with the best val AUROC and evaluates the test set once. It writes `results/{name}/seed{seed}.json` (config, val and test metrics, **test metrics per subject**) and `seed{seed}_test_preds.npz` (probabilities, labels, subject) for paired per-subject comparisons. With only 5 test subjects, the between-subject spread dominates; differences below ~0.02 AUROC are treated as noise.
 
