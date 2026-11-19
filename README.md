@@ -2,6 +2,8 @@
 
 Reproduction of [CBraMod](https://arxiv.org/abs/2412.07236) (ICLR 2025) on SHU-MI (left vs right hand motor imagery) and a comparison with [EEG-SimpleConv](https://github.com/elouayas/EEGSimpleConv), with shared data, split, training loop and metrics. Only the model differs.
 
+**Slides:** [`slides/slides.pdf`](slides/slides.pdf) (39 pages: method, EDA, reproduction, comparison, improvements).
+
 ## Commands
 
 ```bash
@@ -21,6 +23,29 @@ tensorboard --logdir runs --port 6006    # open http://localhost:6006
 ```
 
 Device is picked automatically (CUDA > MPS > CPU), fp32 everywhere.
+
+## Slides
+
+<table>
+  <tr>
+    <td width="50%"><a href="slides/slides.pdf"><img src="slides/01_title.png" alt="Title slide"></a></td>
+    <td width="50%"><a href="slides/slides.pdf"><img src="slides/11_criss_cross.png" alt="Criss-Cross Transformer"></a></td>
+  </tr>
+  <tr>
+    <td align="center">CBraMod on SHU-MI</td>
+    <td align="center">Method: criss-cross attention and its ablations</td>
+  </tr>
+  <tr>
+    <td width="50%"><a href="slides/slides.pdf"><img src="slides/27_reproduction.png" alt="Reproduction: paper vs ours"></a></td>
+    <td width="50%"><a href="slides/slides.pdf"><img src="slides/28_all_models.png" alt="All models on SHU-MI"></a></td>
+  </tr>
+  <tr>
+    <td align="center">Reproduction: paper vs ours (test)</td>
+    <td align="center">All models on SHU-MI (test AUROC)</td>
+  </tr>
+</table>
+
+Full deck (PDF): [`slides/slides.pdf`](slides/slides.pdf)
 
 ## Experiments (`scripts/reproduction/`)
 
